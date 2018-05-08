@@ -19,7 +19,7 @@ class Application extends ConsoleApplication
 {
     public function __construct()
     {
-        parent::__construct('Tale Dev Tool', '1.0');
+        parent::__construct('Tale Dev Tool', '0.2.0');
         $this->configure();
     }
 
