@@ -1,14 +1,14 @@
 <?php
 
-namespace Phug\DevTool;
+namespace Tale\DevTool;
 
-use Phug\DevTool\Command\CheckCommand;
-use Phug\DevTool\Command\CodeStyleCheckCommand;
-use Phug\DevTool\Command\CodeStyleFixCommand;
-use Phug\DevTool\Command\CoverageCheckCommand;
-use Phug\DevTool\Command\CoverageReportCommand;
-use Phug\DevTool\Command\InstallCommand;
-use Phug\DevTool\Command\UnitTestsRunCommand;
+use Tale\DevTool\Command\CheckCommand;
+use Tale\DevTool\Command\CodeStyleCheckCommand;
+use Tale\DevTool\Command\CodeStyleFixCommand;
+use Tale\DevTool\Command\CoverageCheckCommand;
+use Tale\DevTool\Command\CoverageReportCommand;
+use Tale\DevTool\Command\InstallCommand;
+use Tale\DevTool\Command\UnitTestsRunCommand;
 use RuntimeException;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -17,10 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends ConsoleApplication
 {
-    public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
+    public function __construct()
     {
-        parent::__construct($name, $version);
-
+        parent::__construct('Tale Dev Tool', '1.0');
         $this->configure();
     }
 
@@ -42,7 +41,7 @@ class Application extends ConsoleApplication
 
     protected function getConfigDirectory()
     {
-        return realpath(__DIR__.'/../../../config');
+        return realpath(__DIR__ . '/../../config');
     }
 
     public function getConfigFilePath($fileName)

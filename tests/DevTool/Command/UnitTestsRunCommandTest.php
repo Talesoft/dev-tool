@@ -1,17 +1,17 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
-use Phug\DevTool\Application;
-use Phug\DevTool\Command\UnitTestsRunCommand;
+use Tale\DevTool\Application;
+use Tale\DevTool\Command\UnitTestsRunCommand;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * Class UnitTestsRunCommandTest.
  *
- * @coversDefaultClass \Phug\DevTool\Command\UnitTestsRunCommand
+ * @coversDefaultClass \Tale\DevTool\Command\UnitTestsRunCommand
  */
 class UnitTestsRunCommandTest extends TestCase
 {
@@ -44,9 +44,9 @@ class UnitTestsRunCommandTest extends TestCase
     public function testExecute()
     {
         $cwd = getcwd();
-        $app = realpath(__DIR__.'/../../../app');
+        $app = realpath(__DIR__ . '/../../app');
         chdir($app);
-        foreach (glob(__DIR__.'/../../../app/vendor/bin/*') as $file) {
+        foreach (glob(__DIR__.'/../../app/vendor/bin/*') as $file) {
             chmod($file, 0777);
         }
         $coverageHtml = $app.DIRECTORY_SEPARATOR.'coverage';
@@ -62,8 +62,7 @@ class UnitTestsRunCommandTest extends TestCase
         $app->setAutoExit(false);
         ob_start();
         $code = $app->run($input, $buffer);
-        $contents = ob_get_contents();
-        ob_end_clean();
+        $contents = ob_get_clean();
         self::assertSame(0, $code);
         $data = json_decode($contents);
         self::assertTrue($data->{'--coverage-text'});

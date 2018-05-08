@@ -1,14 +1,14 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
-use Phug\DevTool\Command\CoverageCheckCommand;
+use Tale\DevTool\Command\CoverageCheckCommand;
 
 /**
  * Class CoverageCheckCommandTest.
  *
- * @coversDefaultClass \Phug\DevTool\Command\CoverageCheckCommand
+ * @coversDefaultClass \Tale\DevTool\Command\CoverageCheckCommand
  */
 class CoverageCheckCommandTest extends TestCase
 {

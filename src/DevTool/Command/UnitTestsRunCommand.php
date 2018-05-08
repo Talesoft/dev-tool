@@ -1,8 +1,8 @@
 <?php
 
-namespace Phug\DevTool\Command;
+namespace Tale\DevTool\Command;
 
-use Phug\DevTool\AbstractCommand;
+use Tale\DevTool\AbstractCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -1,14 +1,14 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
-use Phug\DevTool\Command\InstallCommand;
+use Tale\DevTool\Command\InstallCommand;
 
 /**
  * Class InstallCommandTest.
  *
- * @coversDefaultClass \Phug\DevTool\Command\InstallCommand
+ * @coversDefaultClass \Tale\DevTool\Command\InstallCommand
  */
 class InstallCommandTest extends TestCase
 {

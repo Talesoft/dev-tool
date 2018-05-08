@@ -1,17 +1,17 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
-use Phug\DevTool\Application;
-use Phug\DevTool\Command\CodeStyleCheckCommand;
+use Tale\DevTool\Application;
+use Tale\DevTool\Command\CodeStyleCheckCommand;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class CodeStyleCheckCommandTest.
  *
- * @coversDefaultClass \Phug\DevTool\Command\CodeStyleCheckCommand
+ * @coversDefaultClass \Tale\DevTool\Command\CodeStyleCheckCommand
  */
 class CodeStyleCheckCommandTest extends TestCase
 {
@@ -31,7 +31,7 @@ class CodeStyleCheckCommandTest extends TestCase
     public function testExecute()
     {
         $cwd = getcwd();
-        chdir(__DIR__.'/../../../app');
+        chdir(__DIR__ . '/../../app');
         $input = new StringInput('code-style:check');
         $buffer = new BufferedOutput();
         $app = new Application();
@@ -43,7 +43,7 @@ class CodeStyleCheckCommandTest extends TestCase
         self::assertRegExp('/Code looks great\. Go on!/', $buffer->fetch());
 
         $cwd = getcwd();
-        chdir(__DIR__.'/../../../app');
+        chdir(__DIR__ . '/../../app');
         $input = new StringInput('code-style:check --ignore-debug --ignore-tests');
         $buffer = new BufferedOutput();
         $app = new Application();

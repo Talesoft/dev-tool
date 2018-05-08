@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright © 2016 The Phug Team
+Copyright © 2016 Talesoft Open Source
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Phug\DevTool\Application;
+use Tale\DevTool\Application;
 
 //Check for autoload file
 $cwd = getcwd();

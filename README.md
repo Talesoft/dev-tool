@@ -5,7 +5,7 @@ Phug Dev Tool
 What is Phug Dev Tool?
 ----------------------
 
-The Phug Dev Tool is a command-line utility that comes with required libraries to develop the Phug template engine.
+Is a fork of the [phug/dev-tool](https://github.com/phug-php/dev-tool) tailored to the needs of tale-* components.
 
 Installation
 ------------
@@ -13,7 +13,7 @@ Installation
 Install via Composer
 
 ```bash
-composer require phug/dev-tool --dev
+composer require talesoft/tale-dev-tool --dev
 ```
 
 Usage

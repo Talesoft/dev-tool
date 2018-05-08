@@ -1,8 +1,8 @@
 <?php
 
-namespace Phug\DevTool\Command;
+namespace Tale\DevTool\Command;
 
-use Phug\DevTool\AbstractCommand;
+use Tale\DevTool\AbstractCommand;
 use SimpleXMLElement;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

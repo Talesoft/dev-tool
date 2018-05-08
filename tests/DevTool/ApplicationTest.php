@@ -1,9 +1,9 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
-use Phug\DevTool\Application;
+use Tale\DevTool\Application;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * Class ApplicationTest.
  *
- * @coversDefaultClass \Phug\DevTool\Application
+ * @coversDefaultClass \Tale\DevTool\Application
  */
 class ApplicationTest extends TestCase
 {
@@ -51,8 +51,8 @@ class ApplicationTest extends TestCase
     {
         $app = new Application();
 
-        self::assertSame(realpath(__DIR__.'/../../../config/phpdoc.xml'), $app->getConfigFilePath('phpdoc.xml'));
-        self::assertSame(realpath(__DIR__.'/../../../phpunit.xml'), $app->getConfigFilePath('phpunit.xml'));
+        self::assertSame(realpath(__DIR__ . '/../../config/phpdoc.xml'), $app->getConfigFilePath('phpdoc.xml'));
+        self::assertSame(realpath(__DIR__ . '/../../phpunit.xml'), $app->getConfigFilePath('phpunit.xml'));
     }
 
     /**
@@ -121,7 +121,7 @@ class ApplicationTest extends TestCase
     public function testBatPath()
     {
         $cwd = getcwd();
-        $appPath = __DIR__.'/../../app';
+        $appPath = __DIR__ . '/../app';
         chdir($appPath);
         foreach (glob($appPath.'/vendor/bin/*') as $file) {
             chmod($file, 0777);

@@ -1,14 +1,14 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
-use Phug\DevTool\Command\CodeStyleFixCommand;
+use Tale\DevTool\Command\CodeStyleFixCommand;
 
 /**
  * Class CodeStyleFixCommandTest.
  *
- * @coversDefaultClass \Phug\DevTool\Command\CodeStyleFixCommand
+ * @coversDefaultClass \Tale\DevTool\Command\CodeStyleFixCommand
  */
 class CodeStyleFixCommandTest extends TestCase
 {

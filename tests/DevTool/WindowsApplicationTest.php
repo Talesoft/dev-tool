@@ -1,8 +1,8 @@
 <?php
 
-namespace Phug\Test\DevTool;
+namespace Tale\Test\DevTool;
 
-use Phug\DevTool\Application;
+use Tale\DevTool\Application;
 
 class WindowsApplicationTest extends Application
 {

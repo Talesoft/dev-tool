@@ -9,7 +9,7 @@
          convertWarningsToExceptions="true"
          verbose="true">
     <testsuites>
-        <testsuite name="Phug">
+        <testsuite name="Talesoft">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>

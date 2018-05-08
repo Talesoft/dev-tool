@@ -1,6 +1,6 @@
 <?php
 
-namespace Phug\DevTool;
+namespace Tale\DevTool;
 
 use Symfony\Component\Console\Command\Command;
 
