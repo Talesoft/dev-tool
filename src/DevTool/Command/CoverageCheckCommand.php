@@ -27,7 +27,6 @@ class CoverageCheckCommand extends AbstractCommand
     {
         $xmlFile = realpath($input->getArgument('input-file'));
         $requiredCoverage = (int)$input->getOption('required-coverage');
-        var_dump($xmlFile, $requiredCoverage);
 
         if (!$xmlFile) {
             $output->writeln('<fg=red>Error: Code coverage files not passed. Please pass input-file.</>');
