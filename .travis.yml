@@ -8,10 +8,6 @@ php:
     - 7.1
     - 7.2
 
-after_script:
-    - php bin/tale-dev code-style:check
-    - php bin/tale-dev coverage:report coverage.xml --php-version=7.1
-
 install:
     - travis_retry composer self-update
     - travis_retry composer install --no-interaction --prefer-source --dev
@@ -19,6 +15,10 @@ install:
 
 script:
     - ./vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
+
+after_script:
+    - php bin/tale-dev code-style:check
+    - php bin/tale-dev coverage:report coverage.xml --php-version=7.1
 
 addons:
     code_climate:

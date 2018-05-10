@@ -63,8 +63,6 @@ class CheckCommandTest extends TestCase
         chdir($cwd);
 
         self::assertSame(0, $code);
-        $checkStyle = version_compare(PHP_VERSION, '5.6.0') >= 0;
-        $expectedPattern = $checkStyle ? '/Code looks great\. Go on!/' : '/Code Coverage/';
-        self::assertRegExp($expectedPattern, $buffer->fetch());
+        self::assertRegExp('/Code looks great\. Go on!/', $buffer->fetch());
     }
 }

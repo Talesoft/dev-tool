@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\DevTool\Command;
 
@@ -25,11 +26,10 @@ class CoverageCheckCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $xmlFile = realpath($input->getArgument('input-file'));
-        $requiredCoverage = intval($input->getOption('required-coverage'));
+        $requiredCoverage = (int)$input->getOption('required-coverage');
 
         if (!$xmlFile) {
-            $output->writeln('<fg=red>Error: Code coverage files not found. Please run `unit-tests:run`.</>');
-
+            $output->writeln('<fg=red>Error: Code coverage files not passed. Please pass --input-file.</>');
             return 1;
         }
 

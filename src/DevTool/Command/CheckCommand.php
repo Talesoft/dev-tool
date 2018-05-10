@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\DevTool\Command;
 
@@ -122,7 +123,7 @@ class CheckCommand extends AbstractCommand
 
         foreach ($passTrough as $option) {
             if ($value = $input->getOption($option)) {
-                $args[$option] = $value;
+                $args["--{$option}"] = $value;
             }
         }
 
@@ -130,11 +131,11 @@ class CheckCommand extends AbstractCommand
             return $code;
         }
 
-        if (!$app->isHhvm() && ($code = $this->runCoverage($input, $output, $coverageFilePath))) {
+        if ($code = $this->runCoverage($input, $output, $coverageFilePath)) {
             return $code;
         }
 
-        if (version_compare(PHP_VERSION, '5.6.0') >= 0 && ($code = $app->runCommand('code-style:check', $output, [
+        if (($code = $app->runCommand('code-style:check', $output, [
                 '--no-interaction',
                 '--ignore-tests' => $input->getOption('ignore-tests'),
             ])) !== 0) {

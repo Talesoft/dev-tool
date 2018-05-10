@@ -58,7 +58,6 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::isWindows
      * @covers ::isUnix
-     * @covers ::isHhvm
      */
     public function testEnvironmentCheck()
     {
@@ -66,7 +65,6 @@ class ApplicationTest extends TestCase
 
         self::assertSame(strncmp(strtolower(PHP_OS), 'win', 3) === 0, $app->isWindows());
         self::assertSame(strncmp(strtolower(PHP_OS), 'win', 3) !== 0, $app->isUnix());
-        self::assertSame(defined('HHVM_VERSION'), $app->isHhvm());
     }
 
     /**

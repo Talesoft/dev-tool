@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\DevTool\Command;
 
@@ -33,7 +34,7 @@ class CodeStyleCheckCommand extends AbstractCommand
         if ($input->getOption('ignore-debug')) {
             $ignore[] = '*/debug/*';
         }
-        if (count($ignore)) {
+        if (\count($ignore)) {
             $args['--ignore'] = implode(',', $ignore);
         }
 

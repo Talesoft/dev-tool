@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\DevTool;
 
+use Symfony\Component\Console\Exception\LogicException;
 use Tale\DevTool\Command\CheckCommand;
 use Tale\DevTool\Command\CodeStyleCheckCommand;
 use Tale\DevTool\Command\CodeStyleFixCommand;
@@ -19,10 +21,14 @@ class Application extends ConsoleApplication
 {
     public function __construct()
     {
-        parent::__construct('Tale Dev Tool', '0.2.0');
+        parent::__construct('Tale Dev Tool', '0.2.1');
         $this->configure();
     }
 
+    /**
+     *
+     * @throws LogicException
+     */
     protected function configure()
     {
         $this->add(new CheckCommand());
@@ -55,31 +61,42 @@ class Application extends ConsoleApplication
         return $this->getConfigDirectory().DIRECTORY_SEPARATOR.$fileName;
     }
 
-    public function isWindows()
+    public function isWindows(): bool
     {
         return strncmp(strtolower(PHP_OS), 'win', 3) === 0;
     }
 
-    public function isUnix()
+    public function isUnix(): bool
     {
         return !$this->isWindows();
     }
 
-    public function isHhvm()
-    {
-        return defined('HHVM_VERSION');
-    }
-
-    public function runCommand($command, OutputInterface $output, array $arguments = null)
+    /**
+     * @param $command
+     * @param OutputInterface $output
+     * @param array|null $arguments
+     * @return int
+     * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
+     */
+    public function runCommand($command, OutputInterface $output, array $arguments = null): int
     {
         $arguments = $arguments ?: [];
 
         $command = $this->find($command);
         $arguments['command'] = $command->getName();
 
-        return $command->run(new ArrayInput($arguments), $output);
+        try {
+            return $command->run(new ArrayInput($arguments), $output);
+        } catch (\Exception $e) {
+            return 1;
+        }
     }
 
+    /**
+     * @param $command
+     * @return bool|string
+     * @throws \RuntimeException
+     */
     protected function getShellCommandPath($command)
     {
         $cwd = $this->getWorkingDirectory();
@@ -105,7 +122,7 @@ class Application extends ConsoleApplication
         $parts = [escapeshellcmd($command)];
 
         foreach ($arguments as $key => $arg) {
-            if (!is_int($key)) {
+            if (!\is_int($key)) {
                 $arg = "$key=$arg";
             }
 
@@ -117,17 +134,33 @@ class Application extends ConsoleApplication
         return is_numeric($returnCode) ? intval($returnCode) : $returnCode;
     }
 
-    public function runVendorCommand($name, array $arguments = null)
+    /**
+     * @param $name
+     * @param array|null $arguments
+     * @return int
+     * @throws \RuntimeException
+     */
+    public function runVendorCommand($name, array $arguments = null): int
     {
         return $this->runShellCommand($this->getShellCommandPath("vendor/bin/$name"), $arguments);
     }
 
-    public function runUnitTests(array $arguments = null)
+    /**
+     * @param array|null $arguments
+     * @return int
+     * @throws \RuntimeException
+     */
+    public function runUnitTests(array $arguments = null): int
     {
         return $this->runVendorCommand('phpunit', $arguments);
     }
 
-    public function runCodeStyleChecker(array $arguments = null)
+    /**
+     * @param array|null $arguments
+     * @return int
+     * @throws \RuntimeException
+     */
+    public function runCodeStyleChecker(array $arguments = null): int
     {
         $arguments = $arguments ?: [];
 
@@ -136,16 +169,32 @@ class Application extends ConsoleApplication
         return $this->runVendorCommand('phpcs', $arguments);
     }
 
-    public function runCodeStyleFixer(array $arguments = null)
+    /**
+     * @param array|null $arguments
+     * @return int
+     * @throws \RuntimeException
+     */
+    public function runCodeStyleFixer(array $arguments = null): int
     {
         return $this->runVendorCommand('phpcbf', $arguments);
     }
 
-    public function runCoverageReporter(array $arguments = null)
+    /**
+     * @param array|null $arguments
+     * @return int
+     * @throws \RuntimeException
+     */
+    public function runCoverageReporter(array $arguments = null): int
     {
         return $this->runVendorCommand('test-reporter', $arguments);
     }
 
+    /**
+     * @param InputInterface|null $input
+     * @param OutputInterface|null $output
+     * @return int
+     * @throws \Exception
+     */
     public function run(InputInterface $input = null, OutputInterface $output = null)
     {
         $this->configure();

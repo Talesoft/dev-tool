@@ -6,7 +6,7 @@ use Tale\DevTool\Application;
 
 class WindowsApplicationTest extends Application
 {
-    public function isWindows()
+    public function isWindows(): bool
     {
         return true;
     }

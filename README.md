@@ -1,8 +1,8 @@
 
-Phug Dev Tool
+Tale Dev Tool
 =============
 
-What is Phug Dev Tool?
+What is Tale Dev Tool?
 ----------------------
 
 Is a fork of the [phug/dev-tool](https://github.com/phug-php/dev-tool) tailored to the needs of tale-* components.
