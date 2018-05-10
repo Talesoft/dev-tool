@@ -18,7 +18,6 @@ class CodeStyleFixCommandTest extends TestCase
     public function testConfigure()
     {
         $codeStyleFix = new CodeStyleFixCommand();
-
         self::assertSame('code-style:fix', $codeStyleFix->getName());
     }
 }

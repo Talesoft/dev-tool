@@ -18,7 +18,6 @@ class InstallCommandTest extends TestCase
     public function testConfigure()
     {
         $install = new InstallCommand();
-
         self::assertSame('install', $install->getName());
     }
 }

@@ -18,7 +18,6 @@ class CoverageCheckCommandTest extends TestCase
     public function testConfigure()
     {
         $coverageCheck = new CoverageCheckCommand();
-
         self::assertSame('coverage:check', $coverageCheck->getName());
     }
 }

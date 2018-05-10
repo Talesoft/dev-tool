@@ -21,12 +21,12 @@ class CodeStyleCheckCommandTest extends TestCase
     public function testConfigure()
     {
         $codeStyleCheck = new CodeStyleCheckCommand();
-
         self::assertSame('code-style:check', $codeStyleCheck->getName());
     }
 
     /**
      * @covers ::execute
+     * @throws \Exception
      */
     public function testExecute()
     {

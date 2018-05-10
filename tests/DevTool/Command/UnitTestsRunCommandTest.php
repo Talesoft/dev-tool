@@ -40,6 +40,7 @@ class UnitTestsRunCommandTest extends TestCase
 
     /**
      * @covers ::execute
+     * @throws \Exception
      */
     public function testExecute()
     {

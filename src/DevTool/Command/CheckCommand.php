@@ -80,7 +80,6 @@ class CheckCommand extends AbstractCommand
                     'Coverage ignored since PHP version ('.PHP_VERSION.')'.
                     ' does not match '.$phpVersion.'.'
                 );
-
                 return 0;
             }
             $output->writeln(
@@ -131,7 +130,7 @@ class CheckCommand extends AbstractCommand
             return $code;
         }
 
-        if ($code = $this->runCoverage($input, $output, $coverageFilePath)) {
+        if (($code = $this->runCoverage($input, $output, $coverageFilePath)) !== 0) {
             return $code;
         }
 

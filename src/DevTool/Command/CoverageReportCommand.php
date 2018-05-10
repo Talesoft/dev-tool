@@ -32,7 +32,6 @@ class CoverageReportCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $xmlFile = realpath($input->getArgument('input-file'));
-
         $phpVersion = $input->getOption('php-version');
 
         if (!empty($phpVersion)) {
