@@ -1,4 +1,9 @@
 
+[![Packagist](https://img.shields.io/packagist/v/talesoft/tale-dev-tool.svg?style=for-the-badge)](https://packagist.org/packages/talesoft/tale-dev-tool)
+[![License](https://img.shields.io/github/license/Talesoft/tale-dev-tool.svg?style=for-the-badge)](https://github.com/Talesoft/tale-dev-tool/blob/master/LICENSE.md)
+[![CI](https://img.shields.io/travis/Talesoft/tale-inflector.svg?style=for-the-badge)](https://travis-ci.org/Talesoft/tale-dev-tool)
+[![Coverage](https://img.shields.io/codeclimate/coverage/Talesoft/tale-dev-tool.svg?style=for-the-badge)](https://codeclimate.com/github/Talesoft/tale-dev-tool)
+
 Tale Dev Tool
 =============
 
