@@ -59,7 +59,8 @@ class UnitTestsRunCommandTest extends TestCase
             'command' => 'unit-tests:run',
             '--coverage-text' => true,
             '--coverage-html' => $coverageHtml,
-            '--coverage-clover' => $coverageClover
+            '--coverage-clover' => $coverageClover,
+            '--testdox' => true
         ]);
         $buffer = new ConsoleOutput();
         $app = new Application();

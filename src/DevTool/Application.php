@@ -50,7 +50,7 @@ class Application extends ConsoleApplication
         return \dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'config';
     }
 
-    public function getConfigFilePath($fileName): string
+    public function getConfigFilePath(string $fileName): string
     {
         $localPath = realpath($this->getWorkingDirectory().DIRECTORY_SEPARATOR.$fileName);
 
@@ -72,21 +72,19 @@ class Application extends ConsoleApplication
     }
 
     /**
-     * @param $command
+     * @param string $command
      * @param OutputInterface $output
      * @param array|null $arguments
      * @return int
      * @throws \Symfony\Component\Console\Exception\CommandNotFoundException
      */
-    public function runCommand($command, OutputInterface $output, array $arguments = null): int
+    public function runCommand(string $command, OutputInterface $output, array $arguments = null): int
     {
         $arguments = $arguments ?: [];
-
-        $command = $this->find($command);
-        $arguments['command'] = $command->getName();
-
+        $instance = $this->find($command);
+        $arguments['command'] = $instance->getName();
         try {
-            return $command->run(new ArrayInput($arguments), $output);
+            return $instance->run(new ArrayInput($arguments), $output);
         } catch (\Exception $e) {
             return 1;
         }
@@ -97,7 +95,7 @@ class Application extends ConsoleApplication
      * @return bool|string
      * @throws \RuntimeException
      */
-    protected function getShellCommandPath($command): string
+    protected function getShellCommandPath(string $command): string
     {
         $cwd = $this->getWorkingDirectory();
         $commandPath = $cwd."/$command";
@@ -116,13 +114,18 @@ class Application extends ConsoleApplication
         return $commandPath;
     }
 
-    public function runShellCommand($command, array $arguments = null): int
+    public function runShellCommand(string $command, array $arguments = null): int
     {
         $arguments = $arguments ?: [];
         $parts = [escapeshellcmd($command)];
 
         foreach ($arguments as $key => $arg) {
-            if (!\is_int($key)) {
+            if (\is_bool($arg)) {
+                if (!$arg) {
+                    continue;
+                }
+                $arg = $key;
+            } elseif (!\is_int($key)) {
                 $arg = "$key=$arg";
             }
 
@@ -130,8 +133,7 @@ class Application extends ConsoleApplication
         }
 
         passthru(implode(' ', $parts), $returnCode);
-
-        return is_numeric($returnCode) ? (int)$returnCode : $returnCode;
+        return (int)$returnCode;
     }
 
     /**
@@ -140,7 +142,7 @@ class Application extends ConsoleApplication
      * @return int
      * @throws \RuntimeException
      */
-    public function runVendorCommand($name, array $arguments = null): int
+    public function runVendorCommand(string $name, array $arguments = null): int
     {
         return $this->runShellCommand($this->getShellCommandPath("vendor/bin/$name"), $arguments);
     }
