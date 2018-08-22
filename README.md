@@ -10,7 +10,13 @@ Tale Dev Tool
 What is Tale Dev Tool?
 ----------------------
 
-Is a fork of the [phug/dev-tool](https://github.com/phug-php/dev-tool) tailored to the needs of tale-* components.
+It's a fork of the [phug/dev-tool](https://github.com/phug-php/dev-tool) tailored to the needs of tale-* components.
+
+You can use it for any kind of composer-based PHP-project.
+
+It provides default configuration for PHPUnit, PHP CodeSniffer and PHPDocumentor.
+
+It can also check code coverage percentages and report the coverage to CodeClimate.
 
 Installation
 ------------
@@ -23,6 +29,10 @@ composer require talesoft/tale-dev-tool --dev
 
 Usage
 -----
+
+During development, you will mostly call the tool like this:
+
+    ./vendor/bin/tale-dev <command> <arguments>
 
 ### Available Commands
 
@@ -37,6 +47,18 @@ Runs `unit-tests:run`, `code-style:check` and `coverage:check` in this order and
 Return code is the return code of the failed command.
 
 If `--report` is set, this command will generate code-coverage data and report it to code-climate.
+
+I usually have a .travis.yml set up for this that contains something like
+
+```yaml
+addons:
+    code_climate:
+        repo_token: <your_code_climate_repo_token>
+```
+
+Check this repo's .travis.yml to get an idea. You can also check the repo of e.g. [tale-stream](https://github.com/Talesoft/tale-stream) to see how it's used in an actual library.
+
+> Notice: This is an [outdated](https://github.com/codeclimate/php-test-reporter) way to report coverage and I need to update it. Feel free to ignore it, even though it will probably still work for a while.
 
 #### `code-style:check`
 
@@ -55,6 +77,8 @@ This runs `phpcbf` with a default config or a local config, if found.
 Runs unit tests located in `./tests`.
 
 You can pass `--coverage-text` and `--coverage-clover=<targetXmlPath>` to generate code-coverage information.
+
+The `--filter`, `--group` and `--testdox` options are passed through to PHPUnit, if set.
 
 #### `coverage:check`
 

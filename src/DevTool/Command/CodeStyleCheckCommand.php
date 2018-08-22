@@ -11,16 +11,16 @@ use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class CodeStyleCheckCommand extends AbstractCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('code-style:check')
-            ->addOption('ignore-tests', null, InputOption::VALUE_NONE, 'Ignore /tests/ directories')
-            ->addOption('ignore-debug', null, InputOption::VALUE_NONE, 'Ignore /debug/ directories')
             ->setDescription('Runs code style checker (phpcs).')
-            ->setHelp('This command runs the code style checker');
+            ->setHelp('This command runs the code style checker')
+            ->addOption('ignore-tests', null, InputOption::VALUE_NONE, 'Ignore /tests/ directories')
+            ->addOption('ignore-debug', null, InputOption::VALUE_NONE, 'Ignore /debug/ directories');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $helper = $this->getHelper('question');
         $args = [

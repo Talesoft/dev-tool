@@ -21,7 +21,7 @@ class Application extends ConsoleApplication
 {
     public function __construct()
     {
-        parent::__construct('Tale Dev Tool', '0.2.1');
+        parent::__construct('Tale Dev Tool', '0.2.4');
         $this->configure();
     }
 
@@ -29,7 +29,7 @@ class Application extends ConsoleApplication
      *
      * @throws LogicException
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->add(new CheckCommand());
         $this->add(new CodeStyleCheckCommand());
@@ -40,17 +40,17 @@ class Application extends ConsoleApplication
         $this->add(new UnitTestsRunCommand());
     }
 
-    public function getWorkingDirectory()
+    public function getWorkingDirectory(): string
     {
         return getcwd();
     }
 
-    protected function getConfigDirectory()
+    protected function getConfigDirectory(): string
     {
-        return realpath(__DIR__ . '/../../config');
+        return \dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'config';
     }
 
-    public function getConfigFilePath($fileName)
+    public function getConfigFilePath($fileName): string
     {
         $localPath = realpath($this->getWorkingDirectory().DIRECTORY_SEPARATOR.$fileName);
 
@@ -97,7 +97,7 @@ class Application extends ConsoleApplication
      * @return bool|string
      * @throws \RuntimeException
      */
-    protected function getShellCommandPath($command)
+    protected function getShellCommandPath($command): string
     {
         $cwd = $this->getWorkingDirectory();
         $commandPath = $cwd."/$command";
@@ -116,7 +116,7 @@ class Application extends ConsoleApplication
         return $commandPath;
     }
 
-    public function runShellCommand($command, array $arguments = null)
+    public function runShellCommand($command, array $arguments = null): int
     {
         $arguments = $arguments ?: [];
         $parts = [escapeshellcmd($command)];
@@ -131,7 +131,7 @@ class Application extends ConsoleApplication
 
         passthru(implode(' ', $parts), $returnCode);
 
-        return is_numeric($returnCode) ? intval($returnCode) : $returnCode;
+        return is_numeric($returnCode) ? (int)$returnCode : $returnCode;
     }
 
     /**
@@ -195,7 +195,7 @@ class Application extends ConsoleApplication
      * @return int
      * @throws \Exception
      */
-    public function run(InputInterface $input = null, OutputInterface $output = null)
+    public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
         $this->configure();
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
@@ -18,7 +19,7 @@ class CodeStyleCheckCommandTest extends TestCase
     /**
      * @covers ::configure
      */
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $codeStyleCheck = new CodeStyleCheckCommand();
         self::assertSame('code-style:check', $codeStyleCheck->getName());
@@ -28,7 +29,7 @@ class CodeStyleCheckCommandTest extends TestCase
      * @covers ::execute
      * @throws \Exception
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $cwd = getcwd();
         chdir(__DIR__ . '/../../app');

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
@@ -18,7 +19,7 @@ class CheckCommandTest extends TestCase
     /**
      * @covers ::configure
      */
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $check = new CheckCommand();
 
@@ -30,7 +31,7 @@ class CheckCommandTest extends TestCase
      * @covers ::execute
      * @throws \Exception
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $cwd = getcwd();
         chdir(__DIR__ . '/../../app');

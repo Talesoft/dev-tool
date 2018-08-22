@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
@@ -15,7 +16,7 @@ class CoverageReportCommandTest extends TestCase
     /**
      * @covers ::configure
      */
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $coverageReport = new CoverageReportCommand();
         self::assertSame('coverage:report', $coverageReport->getName());

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
@@ -19,7 +20,7 @@ class ApplicationTest extends TestCase
      * @covers ::__construct
      * @covers ::configure
      */
-    public function testApplication()
+    public function testApplication(): void
     {
         $app = new Application();
 
@@ -36,10 +37,9 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::getWorkingDirectory
      */
-    public function testGetWorkingDirectory()
+    public function testGetWorkingDirectory(): void
     {
         $app = new Application();
-
         self::assertSame(getcwd(), $app->getWorkingDirectory());
     }
 
@@ -47,10 +47,9 @@ class ApplicationTest extends TestCase
      * @covers ::getConfigDirectory
      * @covers ::getConfigFilePath
      */
-    public function testGetConfigFilePath()
+    public function testGetConfigFilePath(): void
     {
         $app = new Application();
-
         self::assertSame(realpath(__DIR__ . '/../../config/phpdoc.xml'), $app->getConfigFilePath('phpdoc.xml'));
         self::assertSame(realpath(__DIR__ . '/../../phpunit.xml'), $app->getConfigFilePath('phpunit.xml'));
     }
@@ -59,10 +58,9 @@ class ApplicationTest extends TestCase
      * @covers ::isWindows
      * @covers ::isUnix
      */
-    public function testEnvironmentCheck()
+    public function testEnvironmentCheck(): void
     {
         $app = new Application();
-
         self::assertSame(strncmp(strtolower(PHP_OS), 'win', 3) === 0, $app->isWindows());
         self::assertSame(strncmp(strtolower(PHP_OS), 'win', 3) !== 0, $app->isUnix());
     }
@@ -70,7 +68,7 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::runCommand
      */
-    public function testRunCommand()
+    public function testRunCommand(): void
     {
         $app = new Application();
         $buffer = new BufferedOutput();
@@ -82,10 +80,9 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::runShellCommand
      */
-    public function testRunShellCommand()
+    public function testRunShellCommand(): void
     {
         $app = new Application();
-
         self::assertSame(0, $app->runShellCommand('composer', ['--quiet']));
         self::assertSame(0, $app->runShellCommand('composer', ['--quiet', '--verbose', '--format' => 'xml']));
     }
@@ -94,11 +91,10 @@ class ApplicationTest extends TestCase
      * @covers ::getShellCommandPath
      * @covers ::runVendorCommand
      */
-    public function testRunVendorCommand()
+    public function testRunVendorCommand(): void
     {
         $app = new Application();
-
-        self::expectOutputRegex('/^PHP_CodeSniffer version/');
+        $this->expectOutputRegex('/^PHP_CodeSniffer version/');
         self::assertSame(0, $app->runVendorCommand('phpcs', ['--version']));
     }
 
@@ -107,7 +103,7 @@ class ApplicationTest extends TestCase
      * @expectedException        \RuntimeException
      * @expectedExceptionMessage The given command [vendor/bin/doNotExists] was not found
      */
-    public function testGetShellCommandPathException()
+    public function testGetShellCommandPathException(): void
     {
         $app = new Application();
         $app->runVendorCommand('doNotExists');
@@ -116,7 +112,7 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::getShellCommandPath
      */
-    public function testBatPath()
+    public function testBatPath(): void
     {
         $cwd = getcwd();
         $appPath = __DIR__ . '/../app';
@@ -134,10 +130,10 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::runUnitTests
      */
-    public function testRunUnitTests()
+    public function testRunUnitTests(): void
     {
         $app = new Application();
-        self::expectOutputRegex('/^PHPUnit/');
+        $this->expectOutputRegex('/^PHPUnit/');
         $code = $app->runUnitTests(['--version']);
 
         self::assertSame(0, $code);
@@ -146,40 +142,38 @@ class ApplicationTest extends TestCase
     /**
      * @covers ::runCodeStyleChecker
      */
-    public function testRunCodeStyleChecker()
+    public function testRunCodeStyleChecker(): void
     {
         $app = new Application();
-
-        self::expectOutputRegex('/^PHP_CodeSniffer version/');
+        $this->expectOutputRegex('/^PHP_CodeSniffer version/');
         self::assertSame(0, $app->runCodeStyleChecker(['--version']));
     }
 
     /**
      * @covers ::runCodeStyleFixer
      */
-    public function testRunCodeStyleFixer()
+    public function testRunCodeStyleFixer(): void
     {
         $app = new Application();
-
-        self::expectOutputRegex('/^PHP_CodeSniffer version/');
+        $this->expectOutputRegex('/^PHP_CodeSniffer version/');
         self::assertSame(0, $app->runCodeStyleFixer(['--version']));
     }
 
     /**
      * @covers ::runCoverageReporter
      */
-    public function testRunCoverageReporter()
+    public function testRunCoverageReporter(): void
     {
         $app = new Application();
-
-        self::expectOutputRegex('/Code Climate PHP Test Reporter/');
+        $this->expectOutputRegex('/Code Climate PHP Test Reporter/');
         self::assertSame(0, $app->runCoverageReporter(['--version']));
     }
 
     /**
      * @covers ::run
+     * @throws \Exception
      */
-    public function testRun()
+    public function testRun(): void
     {
         $input = new StringInput('code-style:check -n');
         $buffer = new BufferedOutput();

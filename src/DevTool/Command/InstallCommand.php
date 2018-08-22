@@ -9,14 +9,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class InstallCommand extends AbstractCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('install')
             ->setDescription('Updates and installs composer dependencies.')
             ->setHelp('Updates and installs composer dependencies');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $app = $this->getApplication();
 

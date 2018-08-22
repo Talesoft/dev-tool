@@ -9,19 +9,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CodeStyleFixCommand extends AbstractCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('code-style:fix')
             ->setDescription('Runs code style fixer (phpcbf).')
             ->setHelp('This command runs the code style fixer');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $args = [
-            '--standard' => $this->getApplication()->getConfigFilePath('phpcs.xml'),
-        ];
-
+        $args = ['--standard' => $this->getApplication()->getConfigFilePath('phpcs.xml'),];
         return $this->getApplication()->runCodeStyleFixer($args);
     }
 }

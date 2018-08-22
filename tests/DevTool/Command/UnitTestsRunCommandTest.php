@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Tale\DevTool\Application;
 use Tale\DevTool\Command\UnitTestsRunCommand;
 use Symfony\Component\Console\Input\StringInput;
@@ -15,13 +18,13 @@ use Symfony\Component\Console\Output\NullOutput;
  */
 class UnitTestsRunCommandTest extends TestCase
 {
-    private static function remove($entity)
+    private static function remove($entity): void
     {
         if (is_file($entity)) {
-            return unlink($entity);
+            unlink($entity);
         }
 
-        foreach (scandir($entity) as $file) {
+        foreach (scandir($entity, SCANDIR_SORT_NONE) as $file) {
             if ($file !== '.' && $file !== '..') {
                 self::remove($entity.'/'.$file);
             }
@@ -31,7 +34,7 @@ class UnitTestsRunCommandTest extends TestCase
     /**
      * @covers ::configure
      */
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $unitTests = new UnitTestsRunCommand();
 
@@ -42,7 +45,7 @@ class UnitTestsRunCommandTest extends TestCase
      * @covers ::execute
      * @throws \Exception
      */
-    public function testExecute()
+    public function testExecute(): void
     {
         $cwd = getcwd();
         $app = realpath(__DIR__ . '/../../app');
@@ -52,13 +55,13 @@ class UnitTestsRunCommandTest extends TestCase
         }
         $coverageHtml = $app.DIRECTORY_SEPARATOR.'coverage';
         $coverageClover = $app.DIRECTORY_SEPARATOR.'coverage.xml';
-        $input = new StringInput(
-            'unit-tests:run'.
-            ' --coverage-text'.
-            ' --coverage-html='.escapeshellarg(addslashes($coverageHtml)).
-            ' --coverage-clover='.escapeshellarg(addslashes($coverageClover))
-        );
-        $buffer = new NullOutput();
+        $input = new ArrayInput([
+            'command' => 'unit-tests:run',
+            '--coverage-text' => true,
+            '--coverage-html' => $coverageHtml,
+            '--coverage-clover' => $coverageClover
+        ]);
+        $buffer = new ConsoleOutput();
         $app = new Application();
         $app->setAutoExit(false);
         ob_start();

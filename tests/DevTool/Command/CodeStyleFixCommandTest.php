@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
@@ -15,7 +16,7 @@ class CodeStyleFixCommandTest extends TestCase
     /**
      * @covers ::configure
      */
-    public function testConfigure()
+    public function testConfigure(): void
     {
         $codeStyleFix = new CodeStyleFixCommand();
         self::assertSame('code-style:fix', $codeStyleFix->getName());

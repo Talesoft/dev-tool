@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Tale\Test\DevTool;
 
@@ -11,7 +12,7 @@ class WindowsApplicationTest extends Application
         return true;
     }
 
-    public function getPhpcsPath()
+    public function getPhpcsPath(): string
     {
         return $this->getShellCommandPath('vendor/bin/phpcs');
     }
